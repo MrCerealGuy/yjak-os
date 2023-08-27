@@ -9,6 +9,7 @@ mov sp, 4096
 mov ax, 07C0h		; Set data segment to where we're loaded
 mov ds, ax
 
+call cls
 
 mov si, text_string	; Put string position into SI
 call print_string	; Call our string-printing routine
@@ -32,6 +33,13 @@ jmp .repeat
 .done:
 ret
 
+cls:
+pusha
+mov ah, 0x00
+mov al, 0x03  ; text mode 80x25 16 colours
+int 0x10
+popa
+ret
 
 times 510-($-$$) db 0	; Pad remainder of boot sector with 0s
 dw 0xAA55				; The standard PC boot signature
