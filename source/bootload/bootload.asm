@@ -1,9 +1,9 @@
 ; ==================================================================
-; The Mike Operating System bootloader
-; Copyright (C) 2006 - 2022 MikeOS Developers -- see doc/LICENSE.TXT
+; The YJAK Operating System bootloader
+; Copyright (C) 2023 Andreas Zahnleiter -- see doc/LICENSE.TXT
 ;
 ; Based on a free boot loader by E Dehling. It scans the FAT12
-; floppy for KERNEL.BIN (the MikeOS kernel), loads it and executes it.
+; floppy for KERNEL.BIN (the YJAK-OS kernel), loads it and executes it.
 ; This must grow no larger than 512 bytes (one sector), with the final
 ; two bytes being the boot signature (AA55h). Note that in FAT12,
 ; a cluster is the same as a sector: 512 bytes.
@@ -21,7 +21,7 @@
 ; Note: some of these values are hard-coded in the source!
 ; Values are those used by IBM for 1.44 MB, 3.5" diskette
 
-OEMLabel		db "MIKEBOOT"	; Disk label
+OEMLabel		db "YJAKBOOT"	; Disk label
 BytesPerSector		dw 512		; Bytes per sector
 SectorsPerCluster	db 1		; Sectors per cluster
 ReservedForBoot		dw 1		; Reserved sectors for boot record
@@ -38,7 +38,7 @@ LargeSectors		dd 0		; Number of LBA sectors
 DriveNo			dw 0		; Drive No: 0
 Signature		db 41		; Drive signature: 41 for floppy
 VolumeID		dd 00000000h	; Volume ID: any number
-VolumeLabel		db "MIKEOS     "; Volume Label: any 11 chars
+VolumeLabel		db "YJAKOS     "; Volume Label: any 11 chars
 FileSystem		db "FAT12   "	; File system type: don't change!
 
 
@@ -333,7 +333,7 @@ l2hts:			; Calculate head, track and sector settings for int 13h
 ; ------------------------------------------------------------------
 ; STRINGS AND VARIABLES
 
-	kern_filename	db "KERNEL  BIN"	; MikeOS kernel filename
+	kern_filename	db "KERNEL  BIN"	; YJAK-OS kernel filename
 
 	disk_error	db "Floppy error! Press any key...", 0
 	file_not_found	db "KERNEL.BIN not found!", 0

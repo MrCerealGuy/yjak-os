@@ -1,6 +1,6 @@
 ; ==================================================================
-; MikeOS -- The Mike Operating System kernel
-; Copyright (C) 2006 - 2019 MikeOS Developers -- see doc/LICENSE.TXT
+; YJAK-OS -- The Mike Operating System kernel
+; Copyright (C) 2006 - 2019 YJAK-OS Developers -- see doc/LICENSE.TXT
 ;
 ; COMMAND LINE INTERFACE
 ; ==================================================================
@@ -962,7 +962,7 @@ exit:
 	exists_msg		db 'Target file already exists!', 13, 10, 0
 	finished_msg		db '>>> Program finished, press any key to continue...', 0
 
-	version_msg		db 'MikeOS ', MIKEOS_VER, 13, 10, 0
+	version_msg		db 'YJAK-OS ', YJAKOS_VER, 13, 10, 0
 
 	exit_string		db 'EXIT', 0
 	help_string		db 'HELP', 0
