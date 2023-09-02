@@ -19,11 +19,11 @@ cd ..
 
 echo Adding bootsector to disk image...
 cd disk_images
-dd count=2 seek=0 bs=512 if=..\source\bootload\bootload.bin of=.\mikeos.flp
+dd count=2 seek=0 bs=512 if=..\source\bootload\bootload.bin of=.\yjakos.flp
 cd ..
 
 echo Mounting disk image...
-imdisk -a -f disk_images\mikeos.flp -s 1440K -m B:
+imdisk -a -f disk_images\yjakos.flp -s 1440K -m B:
 
 echo Copying kernel and applications to disk image...
 copy source\kernel.bin b:\

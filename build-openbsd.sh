@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This script assembles the MikeOS bootloader, kernel and programs
+# This script assembles the YJAK-OS bootloader, kernel and programs
 # with NASM, and then creates floppy and CD images (on OpenBSD)
 
 # Only the root user can mount the floppy disk image as a virtual
@@ -17,11 +17,11 @@ if test "`whoami`" != "root" ; then
 fi
 
 
-if [ ! -e disk_images/mikeos.flp ]
+if [ ! -e disk_images/yjakos.flp ]
 then
-	echo ">>> Creating new MikeOS floppy image..."
-	dd if=/dev/zero of=disk_images/mikeos.flp bs=512 count=2880 || exit
-	vnconfig vnd3 disk_images/mikeos.flp && newfs_msdos -f 1440 vnd3c && vnconfig -u vnd3 || exit
+	echo ">>> Creating new YJAK-OS floppy image..."
+	dd if=/dev/zero of=disk_images/yjakos.flp bs=512 count=2880 || exit
+	vnconfig vnd3 disk_images/yjakos.flp && newfs_msdos -f 1440 vnd3c && vnconfig -u vnd3 || exit
 fi
 
 
@@ -30,7 +30,7 @@ echo ">>> Assembling bootloader..."
 nasm -O0 -w+orphan-labels -f bin -o source/bootload/bootload.bin source/bootload/bootload.asm || exit
 
 
-echo ">>> Assembling MikeOS kernel..."
+echo ">>> Assembling YJAK-OS kernel..."
 
 cd source
 nasm -O0 -w+orphan-labels -f bin -o kernel.bin kernel.asm || exit
@@ -51,13 +51,13 @@ cd ..
 
 echo ">>> Adding bootloader to floppy image..."
 
-dd conv=notrunc if=source/bootload/bootload.bin of=disk_images/mikeos.flp || exit
+dd conv=notrunc if=source/bootload/bootload.bin of=disk_images/yjakos.flp || exit
 
 
-echo ">>> Copying MikeOS kernel and programs..."
+echo ">>> Copying YJAK-OS kernel and programs..."
 
 rm -rf tmp-loop
-vnconfig vnd3 disk_images/mikeos.flp || exit
+vnconfig vnd3 disk_images/yjakos.flp || exit
 
 mkdir tmp-loop && mount -t msdos /dev/vnd3c tmp-loop && cp source/kernel.bin tmp-loop/
 
@@ -73,8 +73,8 @@ rm -rf tmp-loop
 
 echo ">>> Creating CD-ROM ISO image..."
 
-rm -f disk_images/mikeos.iso
-mkisofs -quiet -V 'MIKEOS' -r -J -o disk_images/mikeos.iso -b mikeos.flp disk_images/ || exit
+rm -f disk_images/yjakos.iso
+mkisofs -quiet -V 'YJAKOS' -r -J -o disk_images/yjakos.iso -b yjakos.flp disk_images/ || exit
 
 echo '>>> Done!'
 
